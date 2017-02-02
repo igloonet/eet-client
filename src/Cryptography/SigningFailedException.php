@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php
 
 namespace SlevomatEET\Cryptography;
 
@@ -10,6 +10,10 @@ class SigningFailedException extends \Exception
 	 */
 	private $data;
 
+	/**
+	 * SigningFailedException constructor.
+	 * @param array $data
+	 */
 	public function __construct(array $data)
 	{
 		parent::__construct('Signing failed');
@@ -17,9 +21,11 @@ class SigningFailedException extends \Exception
 		$this->data = $data;
 	}
 
-	public function getData(): array
+	/**
+	 * @return array
+	 */
+	public function getData()
 	{
 		return $this->data;
 	}
-
 }

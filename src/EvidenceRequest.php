@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php
 
 namespace SlevomatEET;
 
@@ -22,6 +22,12 @@ class EvidenceRequest
 	/** @var string */
 	private $bkpCode;
 
+	/**
+	 * EvidenceRequest constructor.
+	 * @param Receipt $receipt
+	 * @param Configuration $configuration
+	 * @param CryptographyService $cryptographyService
+	 */
 	public function __construct(Receipt $receipt, Configuration $configuration, CryptographyService $cryptographyService)
 	{
 		$this->sendDate = new \DateTimeImmutable();
@@ -55,7 +61,7 @@ class EvidenceRequest
 			'cerp_zuct' => Formatter::formatAmount($receipt->getPriceUsedSubsequentSettlement()),
 			'rezim' => $configuration->getEvidenceMode()->getValue(),
 		];
-		$this->body = array_filter($body, function ($value): bool {
+		$this->body = array_filter($body, function ($value) {
 			return $value !== null;
 		});
 
@@ -63,7 +69,10 @@ class EvidenceRequest
 		$this->bkpCode = $cryptographyService->getBkpCode($this->pkpCode);
 	}
 
-	public function getRequestData(): array
+	/**
+	 * @return array
+	 */
+	public function getRequestData()
 	{
 		return [
 			'Hlavicka' => $this->header,
@@ -84,29 +93,43 @@ class EvidenceRequest
 		];
 	}
 
-	public function getSendDate(): \DateTimeImmutable
+	/**
+	 * @return \DateTimeImmutable
+	 */
+	public function getSendDate()
 	{
 		return $this->sendDate;
 	}
 
-	public function getHeader(): array
+	/**
+	 * @return array
+	 */
+	public function getHeader()
 	{
 		return $this->header;
 	}
 
-	public function getBody(): array
+	/**
+	 * @return array
+	 */
+	public function getBody()
 	{
 		return $this->body;
 	}
 
-	public function getPkpCode(): string
+	/**
+	 * @return string
+	 */
+	public function getPkpCode()
 	{
 		return $this->pkpCode;
 	}
 
-	public function getBkpCode(): string
+	/**
+	 * @return string
+	 */
+	public function getBkpCode()
 	{
 		return $this->bkpCode;
 	}
-
 }

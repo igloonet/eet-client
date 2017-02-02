@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php
 
 namespace SlevomatEET;
 
@@ -26,20 +26,29 @@ class EvidenceResponse
 	/** @var \SlevomatEET\EvidenceRequest */
 	private $evidenceRequest;
 
+	/**
+	 * EvidenceResponse constructor.
+	 * @param \stdClass $rawData
+	 * @param EvidenceRequest $evidenceRequest
+	 */
 	public function __construct(\stdClass $rawData, EvidenceRequest $evidenceRequest)
 	{
 		$this->rawData = $rawData;
-		$this->uuid = $rawData->Hlavicka->uuid_zpravy ?? null;
+		$this->uuid = isset($rawData->Hlavicka->uuid_zpravy) ? $rawData->Hlavicka->uuid_zpravy : null;
 		if (isset($rawData->Potvrzeni)) {
 			$this->fik = $rawData->Potvrzeni->fik;
 		}
-		$this->bkp = $rawData->Hlavicka->bkp ?? null;
-		$this->test = $rawData->Potvrzeni->test ?? $rawData->Chyba->test ?? false;
-		$this->responseTime = \DateTimeImmutable::createFromFormat(\DateTime::ISO8601, $rawData->Hlavicka->dat_prij ?? $rawData->Hlavicka->dat_odmit);
+		$this->bkp = isset($rawData->Hlavicka->bkp) ? $rawData->Hlavicka->bkp : null;
+		$this->test = isset($rawData->Potvrzeni->test) ? $rawData->Potvrzeni->test : (isset($rawData->Chyba->test) ? $rawData->Chyba->test : false);
+		$this->responseTime = \DateTimeImmutable::createFromFormat(\DateTime::ISO8601, isset($rawData->Hlavicka->dat_prij) ? $rawData->Hlavicka->dat_prij : $rawData->Hlavicka->dat_odmit);
 		$this->evidenceRequest = $evidenceRequest;
 	}
 
-	public function getFik(): string
+	/**
+	 * @return string
+	 * @throws InvalidResponseWithoutFikException
+	 */
+	public function getFik()
 	{
 		if (!$this->isValid()) {
 			throw new InvalidResponseWithoutFikException($this);
@@ -48,7 +57,10 @@ class EvidenceResponse
 		return $this->fik;
 	}
 
-	public function getRawData(): \stdClass
+	/**
+	 * @return \stdClass
+	 */
+	public function getRawData()
 	{
 		return $this->rawData;
 	}
@@ -69,24 +81,35 @@ class EvidenceResponse
 		return $this->bkp;
 	}
 
-	public function isTest(): bool
+	/**
+	 * @return bool
+	 */
+	public function isTest()
 	{
 		return $this->test;
 	}
 
-	public function isValid(): bool
+	/**
+	 * @return bool
+	 */
+	public function isValid()
 	{
 		return $this->fik !== null;
 	}
 
-	public function getResponseTime(): \DateTimeImmutable
+	/**
+	 * @return \DateTimeImmutable
+	 */
+	public function getResponseTime()
 	{
 		return $this->responseTime;
 	}
 
-	public function getRequest(): EvidenceRequest
+	/**
+	 * @return EvidenceRequest
+	 */
+	public function getRequest()
 	{
 		return $this->evidenceRequest;
 	}
-
 }

@@ -1,11 +1,15 @@
-<?php declare(strict_types = 1);
+<?php
 
 namespace SlevomatEET;
 
 class Formatter
 {
 
-	public static function formatDateTime(\DateTimeImmutable $value): string
+	/**
+	 * @param \DateTimeImmutable $value
+	 * @return string
+	 */
+	public static function formatDateTime(\DateTimeImmutable $value)
 	{
 		return $value->format('c');
 	}
@@ -14,9 +18,8 @@ class Formatter
 	 * @param int|null $price
 	 * @return string|null
 	 */
-	public static function formatAmount(int $price = null)
+	public static function formatAmount($price = null)
 	{
 		return $price === null ? null : number_format($price / 100, 2, '.', '');
 	}
-
 }

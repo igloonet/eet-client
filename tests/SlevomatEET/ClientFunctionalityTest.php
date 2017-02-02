@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php
 
 namespace SlevomatEET;
 
@@ -41,5 +41,4 @@ class ClientFunctionalityTest extends \PHPUnit\Framework\TestCase
 		$this->assertNotNull($response->getUuid());
 		$this->assertTrue($response->isTest());
 	}
-
 }

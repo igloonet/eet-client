@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php
 
 namespace SlevomatEET;
 
@@ -23,7 +23,15 @@ class Configuration
 	/** @var \SlevomatEET\EvidenceEnvironment */
 	private $evidenceEnvironment;
 
-	public function __construct(string $vatId, string $premiseId, string $cashRegisterId, EvidenceEnvironment $evidenceEnvironment, bool $verificationMode = false)
+	/**
+	 * Configuration constructor.
+	 * @param string $vatId
+	 * @param string $premiseId
+	 * @param string $cashRegisterId
+	 * @param EvidenceEnvironment $evidenceEnvironment
+	 * @param bool $verificationMode
+	 */
+	public function __construct($vatId, $premiseId, $cashRegisterId, EvidenceEnvironment $evidenceEnvironment, $verificationMode = false)
 	{
 		$this->vatId = $vatId;
 		$this->premiseId = $premiseId;
@@ -33,34 +41,51 @@ class Configuration
 		$this->evidenceEnvironment = $evidenceEnvironment;
 	}
 
-	public function getVatId(): string
+	/**
+	 * @return string
+	 */
+	public function getVatId()
 	{
 		return $this->vatId;
 	}
 
-	public function getPremiseId(): string
+	/**
+	 * @return string
+	 */
+	public function getPremiseId()
 	{
 		return $this->premiseId;
 	}
 
-	public function getCashRegisterId(): string
+	/**
+	 * @return string
+	 */
+	public function getCashRegisterId()
 	{
 		return $this->cashRegisterId;
 	}
 
-	public function isVerificationMode(): bool
+	/**
+	 * @return bool
+	 */
+	public function isVerificationMode()
 	{
 		return $this->verificationMode;
 	}
 
-	public function getEvidenceMode(): EvidenceMode
+	/**
+	 * @return EvidenceMode
+	 */
+	public function getEvidenceMode()
 	{
 		return $this->evidenceMode;
 	}
 
-	public function getEvidenceEnvironment(): EvidenceEnvironment
+	/**
+	 * @return EvidenceEnvironment
+	 */
+	public function getEvidenceEnvironment()
 	{
 		return $this->evidenceEnvironment;
 	}
-
 }

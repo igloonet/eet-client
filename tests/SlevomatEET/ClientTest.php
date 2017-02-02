@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php
 
 namespace SlevomatEET;
 
@@ -144,7 +144,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 		}
 	}
 
-	private function getTestReceipt(): Receipt
+	private function getTestReceipt()
 	{
 		$receipt = new Receipt(
 			true,
@@ -156,5 +156,4 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
 		return $receipt;
 	}
-
 }

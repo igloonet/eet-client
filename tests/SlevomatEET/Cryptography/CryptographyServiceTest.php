@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php
 
 namespace SlevomatEET\Cryptography;
 
@@ -95,7 +95,7 @@ class CryptographyServiceTest extends \PHPUnit\Framework\TestCase
 		$crypto->addWSESignature($request);
 	}
 
-	private function getReceiptData(): array
+	private function getReceiptData()
 	{
 		return [
 			'dic_popl' => 'CZ00000019',
@@ -107,7 +107,7 @@ class CryptographyServiceTest extends \PHPUnit\Framework\TestCase
 		];
 	}
 
-	private function getRequestData(): string
+	private function getRequestData()
 	{
 		$requestTemplate = file_get_contents(__DIR__ . '/CZ00000019.fixture.3.1.xml');
 
@@ -117,7 +117,7 @@ class CryptographyServiceTest extends \PHPUnit\Framework\TestCase
 			'bkp' => self::EXPECTED_BKP,
 		];
 
-		$patterns = array_map(function (string $dataKey): string {
+		$patterns = array_map(function ($dataKey) {
 			return sprintf('~{%s}~', $dataKey);
 		}, array_keys($data));
 		$replacements = array_values($data);
