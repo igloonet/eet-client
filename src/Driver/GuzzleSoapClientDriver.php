@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php
 
 namespace SlevomatEET\Driver;
 
@@ -17,14 +17,28 @@ class GuzzleSoapClientDriver implements SoapClientDriver
 	/** @var float */
 	private $requestTimeout;
 
-	public function __construct(\GuzzleHttp\Client $httpClient, float $connectionTimeout = self::DEFAULT_TIMEOUT, float $requestTimeout = self::DEFAULT_TIMEOUT)
+	/**
+	 * GuzzleSoapClientDriver constructor.
+	 * @param \GuzzleHttp\Client $httpClient
+	 * @param float $connectionTimeout
+	 * @param float $requestTimeout
+	 */
+	public function __construct(\GuzzleHttp\Client $httpClient, $connectionTimeout = self::DEFAULT_TIMEOUT, $requestTimeout = self::DEFAULT_TIMEOUT)
 	{
 		$this->httpClient = $httpClient;
 		$this->connectionTimeout = $connectionTimeout;
 		$this->requestTimeout = $requestTimeout;
 	}
 
-	public function send(string $request, string $location, string $action, int $soapVersion): string
+	/**
+	 * @param string $request
+	 * @param string $location
+	 * @param string $action
+	 * @param int $soapVersion
+	 * @return string
+	 * @throws DriverRequestFailedException
+	 */
+	public function send($request, $location, $action, $soapVersion)
 	{
 		$headers = [
 			'User-Agent' => self::HEADER_USER_AGENT,
