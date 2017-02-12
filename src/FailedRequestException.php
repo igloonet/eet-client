@@ -11,9 +11,9 @@ class FailedRequestException extends \Exception
 	/**
 	 * FailedRequestException constructor.
 	 * @param EvidenceRequest $request
-	 * @param \Throwable $previous
+	 * @param \Exception $previous
 	 */
-	public function __construct(EvidenceRequest $request, \Throwable $previous)
+	public function __construct(EvidenceRequest $request, \Exception $previous)
 	{
 		parent::__construct('Request error: ' . $previous->getMessage(), $previous->getCode(), $previous);
 		$this->request = $request;

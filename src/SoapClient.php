@@ -29,7 +29,7 @@ class SoapClient extends \SoapClient
 			'exceptions' => true,
 			'cache_wsdl' => WSDL_CACHE_DISK,
 		];
-		parent::__construct($wsdl, $options);
+		parent::__construct(str_replace('\\', '/', $wsdl), $options);
 		$this->cryptoService = $cryptoService;
 		$this->clientDriver = $clientDriver;
 	}

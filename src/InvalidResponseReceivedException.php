@@ -11,9 +11,9 @@ class InvalidResponseReceivedException extends \Exception
 	/**
 	 * InvalidResponseReceivedException constructor.
 	 * @param EvidenceResponse $response
-	 * @param \Throwable|null $previous
+	 * @param $previous
 	 */
-	public function __construct(EvidenceResponse $response, \Throwable $previous = null)
+	public function __construct(EvidenceResponse $response, $previous = null)
 	{
 		parent::__construct(sprintf('Invalid response received. Check response data for errors and warnings.'), 0, $previous);
 		$this->response = $response;
